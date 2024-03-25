@@ -1,0 +1,33 @@
+import random
+
+possibilities = [
+    ["Hors Agglomération", "+31%", "En agglomération", "0%"],
+    ["Routes départementales", "+10%", "Routes nationales", "+12%", "Voie communale", "0%"],
+    ["Passage à niveau", "+49%", "Intersection en X", "+10%", "Intersection en T", "0%"],
+    ["Nuit", "+20%", "Jour", "0%"],
+    ["Forte lumière", "+7%", "Sans lumière", "+4%", "Lumière normale", "0%"],
+    ["Deux véhicules frontaux", "+22%", "Trois véhicules et collision multiple", "+40%", "Deux véhicules par le côté", "+13%", "Sans collision", "0%"],
+    ["Vent tempête", "+8%", "Pluie forte", "+3%", "Brouillard fumée", "+11%", "Normale", "0%"]
+]
+
+total_percentage = 0
+
+for _ in range(50):
+    selected_options = []
+
+    for possibility in possibilities:
+        random_index = random.randrange(0, len(possibility), 2)
+        selected_option = possibility[random_index]
+
+        if random_index + 1 < len(possibility):
+            selected_percentage = possibility[random_index + 1]
+            selected_options.append(selected_option)
+
+            if selected_percentage[-1] == "%":
+                percentage_value = int(selected_percentage[:-1])
+                total_percentage += percentage_value
+
+    conclusion = ", ".join(selected_options)
+    print(f"En {conclusion}, la gravité de l'accident augmente de {total_percentage}%.")
+
+    total_percentage = 0  # Réinitialiser le pourcentage pour l'itération suivante
